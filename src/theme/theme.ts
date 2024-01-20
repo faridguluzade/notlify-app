@@ -11,12 +11,14 @@ const themeOptions: ThemeOptions = {
     fontWeightRegular: 500,
     fontWeightMedium: 600,
     fontWeightBold: 700,
+
     h1: {
       fontSize: 48,
       fontWeight: 700,
+      color: "#fff",
     },
     h2: {
-      fontSize: 40,
+      fontSize: 50,
       fontWeight: 700,
     },
     h3: {
@@ -41,6 +43,7 @@ const themeOptions: ThemeOptions = {
   },
   palette: {
     // palette values for light mode
+
     primary: {
       main: "#fff",
       light: "#fff",
@@ -65,21 +68,25 @@ const themeOptions: ThemeOptions = {
     },
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
           "& .MuiInputBase-input": {
             fontSize: "14px",
-          },
-          "& .MuiInputLabel-root": {
-            color: "#A0AEC0",
+            color: "#000",
           },
 
           background: "#fff",
         },
       },
     },
-
     MuiInputLabel: {
       styleOverrides: {
         root: {

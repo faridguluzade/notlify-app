@@ -11,9 +11,10 @@ function Search() {
   return (
     <TextField
       onChange={(e) => handleSearch(e.target.value)}
-      id="outlined-basic"
       label={"Seacrh city..."}
       variant="outlined"
+      color="secondary"
+      sx={{ width: "70%" }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

@@ -8,7 +8,7 @@ import WeatherLogo from "@/assets/weather.svg";
 
 function Header() {
   return (
-    <Stack spacing={7} sx={{ padding: 3 }}>
+    <Stack spacing={5} sx={{ padding: 3, marginBottom: "-80px" }}>
       <Box sx={{ position: "relative" }}>
         <img src={WeatherLogo} alt="Weather logo" />
         <Typography
@@ -21,9 +21,9 @@ function Header() {
       </Box>
 
       <Stack direction="row" spacing={1} alignItems="center">
-        <Typography color="primary">°C</Typography>
+        <Typography>°C</Typography>
         <Switch color="success" />
-        <Typography color="primary">°F</Typography>
+        <Typography>°F</Typography>
       </Stack>
     </Stack>
   );
