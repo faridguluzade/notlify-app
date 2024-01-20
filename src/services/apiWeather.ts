@@ -12,16 +12,11 @@ export async function getWeather(
   try {
     if (!searchCity && navigator.geolocation) {
       const position = await getCurrentPosition();
-      searchCity = position
-        ? `${position.coords.latitude},${position.coords.longitude}`
-        : "Baku";
+      searchCity =
+        position && `${position.coords.latitude},${position.coords.longitude}`;
     }
 
     const response = await axios.get(BASE_URL + searchCity);
-
-    if (response.status !== 200) {
-      throw new Error("Invalid city or something went wrong!");
-    }
 
     const data = response.data;
     const formattedWeather: WeatherData = {
@@ -35,7 +30,7 @@ export async function getWeather(
     };
 
     return formattedWeather;
-  } catch (error: unknown) {
-    console.log(error);
+  } catch (error) {
+    throw new Error("Invalid city or something went wrong!");
   }
 }

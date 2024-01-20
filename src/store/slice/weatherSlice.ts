@@ -17,10 +17,13 @@ const initialState: WeatherState = {
   loading: false,
 };
 
-export const fetchWeather = createAsyncThunk("weather/getWeather", async () => {
-  const data = await getWeatherApi();
-  return data;
-});
+export const fetchWeather = createAsyncThunk(
+  "weather/getWeather",
+  async (searchCity: string | undefined) => {
+    const data = await getWeatherApi(searchCity);
+    return data;
+  }
+);
 
 export const weatherSlice = createSlice({
   name: "weather",
@@ -29,9 +32,11 @@ export const weatherSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchWeather.pending, (state) => {
       state.loading = true;
+      state.error = "";
     });
     builder.addCase(fetchWeather.fulfilled, (state, action) => {
       state.loading = false;
+      state.error = "";
       state.weather = action.payload;
     });
     builder.addCase(fetchWeather.rejected, (state, action) => {

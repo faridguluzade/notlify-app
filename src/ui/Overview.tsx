@@ -7,15 +7,19 @@ import Search from "./Search";
 import Weather from "./Weather";
 import SearchedList from "./SearchedList";
 import Stack from "@mui/material/Stack";
+import { useSearchParams } from "react-router-dom";
 
 function Overview() {
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+
+  const searchCity = searchParams.get("query") || undefined;
 
   useEffect(
     function () {
-      dispatch(fetchWeather());
+      dispatch(fetchWeather(searchCity));
     },
-    [dispatch]
+    [dispatch, searchCity]
   );
 
   return (

@@ -12,7 +12,9 @@ export const getCurrentPosition = (): Promise<
   });
 };
 
-export function formatDate(inputDate: string): string {
+export function formatDate(inputDate: string | undefined): string {
+  if (!inputDate) return "";
+
   const dateObject = parse(inputDate, "yyyy-MM-dd H:mm", new Date());
 
   const formattedDate = format(dateObject, "LLL d, EEE", { locale: enUS });

@@ -3,14 +3,20 @@ import { getWeather } from "@/store/slice/weatherSlice";
 
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { LocationIcon, TemperatureIcon } from "@/assets/icons/icons";
 import { formatDate } from "@/lib/utils";
+import { Box } from "@mui/material";
+
+import Error from "./Error";
 
 function Weather() {
-  const { weather } = useAppSelector(getWeather);
+  const { weather, loading, error } = useAppSelector(getWeather);
 
-  const { city, humidity, tempC, tempF, icon, wind, time } = weather;
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <Stack
@@ -23,42 +29,57 @@ function Weather() {
         borderRadius: "32px",
       }}
     >
-      <Stack direction="row" justifyContent="space-between">
-        {/* Location */}
-        <Stack direction="row" gap={1} alignItems="center">
-          <Typography>{city}</Typography>
-          <LocationIcon />
-        </Stack>
+      {loading && (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
+      {!loading && (
+        <>
+          <Stack direction="row" justifyContent="space-between">
+            {/* Location */}
+            <Stack direction="row" gap={1} alignItems="center">
+              <Typography>{weather?.city}</Typography>
+              <LocationIcon />
+            </Stack>
 
-        {/* Date  */}
-        <Typography>{formatDate(time)}</Typography>
-      </Stack>
+            {/* Date  */}
+            <Typography>{formatDate(weather?.time)}</Typography>
+          </Stack>
 
-      {/* Current Temp */}
-      <Stack
-        direction="row"
-        gap={2}
-        justifyContent="center"
-        alignItems="center"
-      >
-        <TemperatureIcon />
-        <Typography variant="h2">{tempC}°C</Typography>
-        <img src={icon} alt="Cloud Image" />
-      </Stack>
+          {/* Current Temp */}
+          <Stack
+            direction="row"
+            gap={2}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <TemperatureIcon />
+            <Typography variant="h2">{weather?.tempC}°C</Typography>
+            <img src={weather?.icon} alt="Cloud Image" />
+          </Stack>
 
-      <Stack direction="row" justifyContent="space-between">
-        {/* Humidty */}
-        <Stack textAlign="center">
-          <Typography>Humidity</Typography>
-          <Typography>{humidity}%</Typography>
-        </Stack>
+          <Stack direction="row" justifyContent="space-between">
+            {/* Humidty */}
+            <Stack textAlign="center">
+              <Typography>Humidity</Typography>
+              <Typography>{weather?.humidity}%</Typography>
+            </Stack>
 
-        {/* Wind */}
-        <Stack textAlign="center">
-          <Typography>Wind</Typography>
-          <Typography>{wind}mph</Typography>
-        </Stack>
-      </Stack>
+            {/* Wind */}
+            <Stack textAlign="center">
+              <Typography>Wind</Typography>
+              <Typography>{weather?.wind}mph</Typography>
+            </Stack>
+          </Stack>
+        </>
+      )}
     </Stack>
   );
 }
