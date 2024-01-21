@@ -1,22 +1,24 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 function Navigation() {
-  const [value, setValue] = useState("today");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+  const dateValue = searchParams.get("date") || "today";
+
+  const handleChange = (_event: React.SyntheticEvent, date: string) => {
+    searchParams.set("date", date);
+    setSearchParams(searchParams);
   };
 
   return (
     <Tabs
-      value={value}
+      value={dateValue}
       onChange={handleChange}
       textColor="secondary"
       indicatorColor="secondary"
-      aria-label="secondary tabs example"
     >
       <Tab value="today" label="Today" />
       <Tab value="tomorrow" label="Tomorrow" />

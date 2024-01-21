@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getWeather as getWeatherApi } from "@/services/apiWeather";
@@ -12,15 +13,15 @@ type WeatherState = {
 };
 
 const initialState: WeatherState = {
-  weather: {} as WeatherData,
+  weather: undefined,
   error: "",
   loading: false,
 };
 
 export const fetchWeather = createAsyncThunk(
   "weather/getWeather",
-  async (searchCity: string | undefined) => {
-    const data = await getWeatherApi(searchCity);
+  async ({ searchCity, date }: { searchCity?: string; date: string }) => {
+    const data = await getWeatherApi({ searchCity, date });
     return data;
   }
 );
@@ -42,6 +43,7 @@ export const weatherSlice = createSlice({
     builder.addCase(fetchWeather.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      toast.error(state.error as string);
     });
   },
 });

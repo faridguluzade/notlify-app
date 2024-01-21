@@ -7,50 +7,35 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 import { LocationIcon, TemperatureIcon } from "@/assets/icons/icons";
 import { formatDate } from "@/lib/utils";
-import { Box } from "@mui/material";
-
-import Error from "./Error";
 
 function Weather() {
-  const { weather, loading, error } = useAppSelector(getWeather);
-
-  if (error) {
-    return <Error message={error} />;
-  }
+  const { weather, loading } = useAppSelector(getWeather);
 
   return (
     <Stack
-      justifyContent="space-between"
       sx={{
         width: "90%",
         minHeight: "425px",
         background: "linear-gradient(113deg, #AD36CB 32.23%, #333 67.37%)",
         padding: 4,
         borderRadius: "32px",
+        justifyContent: `${loading ? "center" : "space-between"}`,
+        alignItems: `${loading ? "center" : "self"}`,
       }}
     >
-      {loading && (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      )}
-      {!loading && (
+      {loading && <CircularProgress />}
+
+      {!loading && weather && (
         <>
           <Stack direction="row" justifyContent="space-between">
             {/* Location */}
             <Stack direction="row" gap={1} alignItems="center">
-              <Typography>{weather?.city}</Typography>
+              <Typography>{weather.city}</Typography>
               <LocationIcon />
             </Stack>
 
             {/* Date  */}
-            <Typography>{formatDate(weather?.time)}</Typography>
+            <Typography>{formatDate(weather.time)}</Typography>
           </Stack>
 
           {/* Current Temp */}
@@ -61,7 +46,7 @@ function Weather() {
             alignItems="center"
           >
             <TemperatureIcon />
-            <Typography variant="h2">{weather?.tempC}°C</Typography>
+            <Typography variant="h2">{Math.round(+weather.tempC)}°C</Typography>
             <img src={weather?.icon} alt="Cloud Image" />
           </Stack>
 
@@ -69,13 +54,13 @@ function Weather() {
             {/* Humidty */}
             <Stack textAlign="center">
               <Typography>Humidity</Typography>
-              <Typography>{weather?.humidity}%</Typography>
+              <Typography>{weather.humidity}%</Typography>
             </Stack>
 
             {/* Wind */}
             <Stack textAlign="center">
               <Typography>Wind</Typography>
-              <Typography>{weather?.wind}mph</Typography>
+              <Typography>{Math.round(+weather.wind)}mph</Typography>
             </Stack>
           </Stack>
         </>

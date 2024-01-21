@@ -14,12 +14,13 @@ function Overview() {
   const [searchParams] = useSearchParams();
 
   const searchCity = searchParams.get("query") || undefined;
+  const date = searchParams.get("date") || "today";
 
   useEffect(
     function () {
-      dispatch(fetchWeather(searchCity));
+      dispatch(fetchWeather({ searchCity, date }));
     },
-    [dispatch, searchCity]
+    [dispatch, searchCity, date]
   );
 
   return (

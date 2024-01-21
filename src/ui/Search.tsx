@@ -10,16 +10,6 @@ function Search() {
   const [searchParams, setSearchParams] = useSearchParams();
   const ref = useRef<HTMLInputElement | null>(null);
 
-  // function handleSearch(term: string) {
-  //   if (term) {
-  //     searchParams.set("query", term);
-  //   } else {
-  //     searchParams.delete("query");
-  //   }
-
-  //   setSearchParams(searchParams);
-  // }
-
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -35,14 +25,14 @@ function Search() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ width: "70%" }}>
       <TextField
         inputRef={ref}
         // onChange={(e) => handleSearch(e.target.value)}
         label={"Seacrh city..."}
         variant="outlined"
         color="secondary"
-        sx={{ width: "70%" }}
+        sx={{ width: "100%" }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
