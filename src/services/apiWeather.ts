@@ -1,11 +1,9 @@
 import axios from "axios";
 import { format, addDays } from "date-fns";
 
-export const BASE_URL =
-  "http://api.weatherapi.com/v1/forecast.json?key=a58ec6b016444cb09d365337230805&q=";
-
 import { WeatherData, WeatherSearchParams } from "@/types";
 import { getCurrentPosition } from "@/lib/utils";
+import { BASE_URL } from "@/lib/constant";
 
 export async function getWeather({
   searchCity,

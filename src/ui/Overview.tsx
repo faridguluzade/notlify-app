@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch} from "@/store/hooks";
 
 import { fetchWeather } from "@/store/slice/weatherSlice";
 
@@ -17,12 +17,9 @@ function Overview() {
   const searchCity = searchParams.get("query") || undefined;
   const date = searchParams.get("date") || "today";
 
-  useEffect(
-    function () {
-      dispatch(fetchWeather({ searchCity, date }));
-    },
-    [dispatch, searchCity, date]
-  );
+  useEffect(() => {
+    dispatch(fetchWeather({ searchCity, date }));
+  }, [dispatch, searchCity, date]);
 
   return (
     <Stack component="main" alignItems="center" gap={6}>

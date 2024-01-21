@@ -2,9 +2,13 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import DarkCloud from "@/assets/darkCloud.svg";
+import { WeatherData } from "@/types";
+import { useAppSelector } from "@/store/hooks";
+import { getTemperature } from "@/store/slice/temperatureSlice";
 
-function SearchedItem() {
+function SearchedItem({ item }: WeatherData) {
+  const { isFahrenheit } = useAppSelector(getTemperature);
+
   return (
     <Box
       sx={{
@@ -20,7 +24,7 @@ function SearchedItem() {
           "linear-gradient(180deg, #B32DD4 0%, rgba(217, 217, 217, 0.00) 100%)",
       }}
     >
-      <Typography>Ottawa</Typography>
+      <Typography>{item.city}</Typography>
       <Box
         sx={{
           width: "121px",
@@ -36,13 +40,13 @@ function SearchedItem() {
           left: 0,
         }}
       >
-        <Stack
-          alignItems="center"
-          spacing={1}
-          sx={{ transform: "translateY(-20px)" }}
-        >
-          <img src={DarkCloud} alt="" width="50%" />
-          <Typography>26C</Typography>
+        <Stack alignItems="center" sx={{ transform: "translateY(-20px)" }}>
+          <img src={item.icon} alt="" width="50%" />
+          <Typography>
+            {!isFahrenheit
+              ? ` ${Math.round(+item.tempC)}°C`
+              : ` ${Math.round(+item.tempF)}°F`}
+          </Typography>
         </Stack>
       </Box>
     </Box>

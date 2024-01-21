@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import weatherSlice from "./slice/weatherSlice";
 import temperatureSlice from "./slice/temperatureSlice";
+import recentCitiesSlice from "./slice/recentCitiesSlice";
 
 export const store = configureStore({
   reducer: {
     weather: weatherSlice,
     temperature: temperatureSlice,
+    recentCities: recentCitiesSlice,
   },
 });
 

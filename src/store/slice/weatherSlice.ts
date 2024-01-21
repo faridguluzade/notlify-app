@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { getWeather as getWeatherApi } from "@/services/apiWeather";
 import { WeatherData, WeatherSearchParams } from "@/types";
 import { RootState } from "../store";
+import { setRecentCities } from "./recentCitiesSlice";
 
 type WeatherState = {
   weather?: WeatherData;
@@ -20,8 +21,32 @@ const initialState: WeatherState = {
 
 export const fetchWeather = createAsyncThunk(
   "weather/getWeather",
-  async ({ searchCity, date }: WeatherSearchParams) => {
+  async ({ searchCity, date }: WeatherSearchParams, { dispatch }) => {
     const data = await getWeatherApi({ searchCity, date });
+
+    if (searchCity && data) {
+      const storedCities = localStorage.getItem("recentCities");
+      const recentCities = storedCities ? JSON.parse(storedCities) : [];
+      let existingItem;
+
+      if (recentCities.length) {
+        existingItem = recentCities.find(
+          (item: WeatherData) => item.city === data.city
+        );
+      }
+
+      if (!existingItem) {
+        recentCities.unshift(data);
+
+        if (recentCities.length > 5) {
+          recentCities.pop();
+        }
+      }
+
+      localStorage.setItem("recentCities", JSON.stringify(recentCities));
+      dispatch(setRecentCities(recentCities));
+    }
+
     return data;
   }
 );
