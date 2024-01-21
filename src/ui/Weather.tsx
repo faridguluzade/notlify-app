@@ -1,5 +1,6 @@
 import { useAppSelector } from "@/store/hooks";
 import { getWeather } from "@/store/slice/weatherSlice";
+import { getTemperature } from "@/store/slice/temperatureSlice";
 
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -10,6 +11,7 @@ import { formatDate } from "@/lib/utils";
 
 function Weather() {
   const { weather, loading } = useAppSelector(getWeather);
+  const { isFahrenheit } = useAppSelector(getTemperature);
 
   return (
     <Stack
@@ -46,7 +48,11 @@ function Weather() {
             alignItems="center"
           >
             <TemperatureIcon />
-            <Typography variant="h2">{Math.round(+weather.tempC)}°C</Typography>
+            <Typography variant="h2">
+              {!isFahrenheit
+                ? ` ${Math.round(+weather.tempC)}°C`
+                : ` ${Math.round(+weather.tempF)}°F`}
+            </Typography>
             <img src={weather?.icon} alt="Cloud Image" />
           </Stack>
 
@@ -60,7 +66,7 @@ function Weather() {
             {/* Wind */}
             <Stack textAlign="center">
               <Typography>Wind</Typography>
-              <Typography>{Math.round(+weather.wind)}mph</Typography>
+              <Typography>{weather.wind} mph</Typography>
             </Stack>
           </Stack>
         </>

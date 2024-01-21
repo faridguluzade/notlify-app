@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getWeather as getWeatherApi } from "@/services/apiWeather";
-import { WeatherData } from "@/types";
+import { WeatherData, WeatherSearchParams } from "@/types";
 import { RootState } from "../store";
 
 type WeatherState = {
@@ -20,7 +20,7 @@ const initialState: WeatherState = {
 
 export const fetchWeather = createAsyncThunk(
   "weather/getWeather",
-  async ({ searchCity, date }: { searchCity?: string; date: string }) => {
+  async ({ searchCity, date }: WeatherSearchParams) => {
     const data = await getWeatherApi({ searchCity, date });
     return data;
   }

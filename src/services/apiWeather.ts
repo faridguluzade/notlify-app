@@ -4,16 +4,13 @@ import { format, addDays } from "date-fns";
 export const BASE_URL =
   "http://api.weatherapi.com/v1/forecast.json?key=a58ec6b016444cb09d365337230805&q=";
 
-import { WeatherData } from "@/types";
+import { WeatherData, WeatherSearchParams } from "@/types";
 import { getCurrentPosition } from "@/lib/utils";
 
 export async function getWeather({
   searchCity,
   date,
-}: {
-  searchCity?: string;
-  date: string;
-}): Promise<WeatherData | undefined> {
+}: WeatherSearchParams): Promise<WeatherData | undefined> {
   try {
     let url: string = BASE_URL;
     const currentDate = new Date();
@@ -39,10 +36,7 @@ export async function getWeather({
     }
 
     const response = await axios.get(url);
-
     const data = response.data;
-
-    console.log(data);
 
     let weather: WeatherData;
 

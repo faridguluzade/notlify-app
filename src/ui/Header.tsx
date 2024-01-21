@@ -2,8 +2,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
-import Switch from "@mui/material/Switch";
-
+import TemperatureSwitch from "./TemperatureSwitch";
 import WeatherLogo from "@/assets/weather.svg";
 
 function Header() {
@@ -20,11 +19,7 @@ function Header() {
         </Typography>
       </Box>
 
-      <Stack direction="row" spacing={1} alignItems="center">
-        <Typography>°C</Typography>
-        <Switch color="success" />
-        <Typography>°F</Typography>
-      </Stack>
+      <TemperatureSwitch />
     </Stack>
   );
 }

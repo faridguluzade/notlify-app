@@ -16,7 +16,7 @@ function Search() {
     const term = ref.current?.value;
 
     if (term) {
-      searchParams.set("query", term);
+      searchParams.set("query", term.toLowerCase());
     } else {
       searchParams.delete("query");
     }
@@ -28,9 +28,8 @@ function Search() {
     <form onSubmit={handleSubmit} style={{ width: "70%" }}>
       <TextField
         inputRef={ref}
-        // onChange={(e) => handleSearch(e.target.value)}
         label={"Seacrh city..."}
-        variant="outlined"
+        variant="filled"
         color="secondary"
         sx={{ width: "100%" }}
         InputProps={{

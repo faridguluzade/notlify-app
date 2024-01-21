@@ -7,3 +7,8 @@ export type WeatherData = {
   wind: string;
   time: string;
 };
+
+export type WeatherSearchParams = {
+  searchCity?: string;
+  date: string;
+};
