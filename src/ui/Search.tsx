@@ -22,6 +22,8 @@ function Search() {
     }
 
     setSearchParams(searchParams);
+
+    ref.current!.value = "";
   }
 
   return (
