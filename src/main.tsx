@@ -3,8 +3,8 @@ import App from "./App.tsx";
 import "./index.css";
 
 import { Provider } from "react-redux";
-import { store, persistor } from "./store/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./store/store.ts";
 
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/theme.ts";

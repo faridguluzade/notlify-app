@@ -1,4 +1,8 @@
-import { createTheme, ThemeOptions } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeOptions,
+  responsiveFontSizes,
+} from "@mui/material/styles";
 
 const themeOptions: ThemeOptions = {
   shape: {
@@ -11,7 +15,6 @@ const themeOptions: ThemeOptions = {
     fontWeightRegular: 500,
     fontWeightMedium: 600,
     fontWeightBold: 700,
-
     h1: {
       fontSize: 48,
       fontWeight: 700,
@@ -21,52 +24,12 @@ const themeOptions: ThemeOptions = {
       fontSize: 50,
       fontWeight: 700,
     },
-    h3: {
-      fontSize: 32,
-      fontWeight: 700,
-    },
-    h4: {
-      fontSize: 24,
-      fontWeight: 700,
-    },
-    h5: {
-      fontSize: 20,
-      fontWeight: 700,
-    },
-    h6: {
-      fontSize: 18,
-      fontWeight: 700,
-    },
+
     subtitle1: {
       fontSize: 14,
     },
   },
-  palette: {
-    // palette values for light mode
 
-    primary: {
-      main: "#fff",
-      light: "#fff",
-      dark: "#fff",
-    },
-    text: {
-      primary: "#fff",
-      secondary: "#687588",
-      disabled: "#A0AEC0",
-    },
-    success: {
-      main: "#0CAF60",
-      light: "#3cbf7f",
-      dark: "#087a43",
-      contrastText: "#fff",
-    },
-    info: {
-      main: "#2F78EE",
-    },
-    error: {
-      main: "#E03137",
-    },
-  },
   components: {
     MuiTypography: {
       styleOverrides: {
@@ -80,7 +43,6 @@ const themeOptions: ThemeOptions = {
         root: {
           "& .MuiInputBase-input": {
             fontSize: "14px",
-            color: "#000",
           },
 
           background: "#fff",
@@ -90,20 +52,21 @@ const themeOptions: ThemeOptions = {
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          fontSize: "14px",
+          fontSize: 14,
         },
       },
     },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          fontSize: "14px",
+          fontSize: 14,
         },
       },
     },
   },
 };
 
-const theme = createTheme(themeOptions);
+let theme = createTheme(themeOptions);
+theme = responsiveFontSizes(theme);
 
 export default theme;

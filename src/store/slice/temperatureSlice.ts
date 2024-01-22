@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 type TemperatureState = {
@@ -13,7 +14,7 @@ const temperatureSlice = createSlice({
   name: "temperature",
   initialState,
   reducers: {
-    toogleTemperature(state, action) {
+    toogleTemperature(state, action: PayloadAction<boolean>) {
       state.isFahrenheit = action.payload;
     },
   },

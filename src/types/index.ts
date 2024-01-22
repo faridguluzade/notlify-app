@@ -14,8 +14,8 @@ export type WeatherSearchParams = {
 };
 
 export type SearchWeather = {
-  tempC?: string;
-  tempF?: string;
-  icon?: string;
-  city?: string;
+  tempC: string;
+  tempF: string;
+  icon: string;
+  city: string;
 };

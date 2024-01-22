@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import toast from "react-hot-toast";
 import { RootState } from "../store";
 
 import { getWeather as getWeatherApi } from "@/services/apiWeather";
@@ -55,7 +54,6 @@ export const weatherSlice = createSlice({
     builder.addCase(fetchWeather.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
-      toast.error(state.error as string);
     });
   },
 });

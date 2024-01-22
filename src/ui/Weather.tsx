@@ -5,12 +5,13 @@ import { getTemperature } from "@/store/slice/temperatureSlice";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
 
 import { LocationIcon, TemperatureIcon } from "@/assets/icons/icons";
 import { formatDate } from "@/lib/utils";
 
 function Weather() {
-  const { weather, loading } = useAppSelector(getWeather);
+  const { weather, loading, error } = useAppSelector(getWeather);
   const { isFahrenheit } = useAppSelector(getTemperature);
 
   return (
@@ -21,13 +22,14 @@ function Weather() {
         background: "linear-gradient(113deg, #AD36CB 32.23%, #333 67.37%)",
         padding: 4,
         borderRadius: "32px",
-        justifyContent: `${loading ? "center" : "space-between"}`,
-        alignItems: `${loading ? "center" : "self"}`,
+        justifyContent: `${loading || error ? "center" : "space-between"}`,
+        alignItems: `${loading || error ? "center" : "self"}`,
       }}
     >
-      {loading && <CircularProgress />}
+      {loading && <CircularProgress style={{ color: "white" }} />}
+      {error && <Alert severity="error">{error}</Alert>}
 
-      {!loading && weather && (
+      {!loading && !error && weather && (
         <>
           <Stack direction="row" justifyContent="space-between">
             {/* Location */}

@@ -4,26 +4,29 @@ import { useAppSelector } from "@/store/hooks";
 
 import { getRecentCities } from "@/store/slice/recentCitiesSlice";
 
-import { SearchWeather } from "@/types";
-
-import Stack from "@mui/material/Stack";
 import SearchedItem from "./SearchedItem";
+import Grid from "@mui/material/Unstable_Grid2";
+import Typography from "@mui/material/Typography";
 
 function SearchedList() {
   const { recentCities } = useAppSelector(getRecentCities);
 
   return (
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      flexWrap="wrap"
+    <Grid
+      container
+      justifyContent="center"
       width={"100%"}
+      gap={3}
       sx={{ paddingBottom: "50px" }}
     >
-      {recentCities?.map((item: SearchWeather) => (
-        <SearchedItem key={item.city} item={item} />
+      {!recentCities.length && <Typography>No cities searched yet</Typography>}
+
+      {recentCities?.map((item) => (
+        <Grid key={item.city} xs={4} sm={3} md={2}>
+          <SearchedItem item={item} />
+        </Grid>
       ))}
-    </Stack>
+    </Grid>
   );
 }
 
