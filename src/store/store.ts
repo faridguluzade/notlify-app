@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -6,23 +6,22 @@ import weatherSlice from "./slice/weatherSlice";
 import temperatureSlice from "./slice/temperatureSlice";
 import recentCitiesSlice from "./slice/recentCitiesSlice";
 
+const rootReducer = combineReducers({
+  weather: weatherSlice,
+  temperature: temperatureSlice,
+  recentCities: recentCitiesSlice,
+});
+
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["recentCities"],
+  whitelist: ["recentCities", "temperature"],
 };
 
-const persistedRecentCitiesReducer = persistReducer(
-  persistConfig,
-  recentCitiesSlice
-);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    weather: weatherSlice,
-    temperature: temperatureSlice,
-    recentCities: persistedRecentCitiesReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

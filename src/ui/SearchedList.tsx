@@ -19,7 +19,7 @@ function SearchedList() {
       gap={3}
       sx={{ paddingBottom: "50px" }}
     >
-      {!recentCities.length && <Typography>No cities searched yet</Typography>}
+      {!recentCities?.length && <Typography>No cities searched yet</Typography>}
 
       {recentCities?.map((item) => (
         <Grid key={item.city} xs={4} sm={3} md={2}>
