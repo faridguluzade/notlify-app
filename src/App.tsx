@@ -6,14 +6,12 @@ import Overview from "@/ui/Overview";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Header />
-        <Container maxWidth="md">
-          <Overview />
-        </Container>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Header />
+      <Container maxWidth="md">
+        <Overview />
+      </Container>
+    </BrowserRouter>
   );
 }
 

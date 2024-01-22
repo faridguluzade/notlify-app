@@ -24,8 +24,6 @@ function Search() {
     setSearchParams(searchParams);
   }
 
-  console.log("SEARCH");
-
   return (
     <form onSubmit={handleSubmit} style={{ width: "70%" }}>
       <TextField
