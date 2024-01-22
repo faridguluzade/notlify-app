@@ -1,21 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
-import { WeatherData } from "@/types";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
-type CitiesState = {
-  recentCities: WeatherData[];
+import { RootState } from "../store";
+import { SearchWeather } from "@/types";
+
+type WeathersState = {
+  recentCities: SearchWeather[];
 };
 
-const initialState: CitiesState = {
-  recentCities: [] as WeatherData[],
+const initialState: WeathersState = {
+  recentCities: [] as SearchWeather[],
 };
 
 const recentCitiesSlice = createSlice({
   name: "recentCities",
   initialState,
   reducers: {
-    setRecentCities: (state, action) => {
-      state.recentCities = action.payload;
+    setRecentCities: (state, action: PayloadAction<SearchWeather>) => {
+      const existingItem = state.recentCities.find(
+        (item) => item.city === action.payload.city
+      );
+
+      if (existingItem) return;
+
+      state.recentCities.unshift(action.payload);
+
+      if (state.recentCities.length > 5) {
+        state.recentCities.pop();
+      }
     },
   },
 });

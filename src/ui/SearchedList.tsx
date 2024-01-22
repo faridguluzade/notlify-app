@@ -1,27 +1,16 @@
-import Stack from "@mui/material/Stack";
-import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import {
-  getRecentCities,
-  setRecentCities,
-} from "@/store/slice/recentCitiesSlice";
+/* eslint-disable react-refresh/only-export-components */
+import { memo } from "react";
+import { useAppSelector } from "@/store/hooks";
 
+import { getRecentCities } from "@/store/slice/recentCitiesSlice";
+
+import { SearchWeather } from "@/types";
+
+import Stack from "@mui/material/Stack";
 import SearchedItem from "./SearchedItem";
 
 function SearchedList() {
   const { recentCities } = useAppSelector(getRecentCities);
-  const dispatch = useAppDispatch();
-
-  useEffect(
-    function () {
-      const storedCities = localStorage.getItem("recentCities");
-
-      const recentCities = storedCities ? JSON.parse(storedCities) : [];
-
-      dispatch(setRecentCities(recentCities));
-    },
-    [dispatch]
-  );
 
   return (
     <Stack
@@ -31,11 +20,11 @@ function SearchedList() {
       width={"100%"}
       sx={{ paddingBottom: "50px" }}
     >
-      {recentCities?.map((item) => (
+      {recentCities?.map((item: SearchWeather) => (
         <SearchedItem key={item.city} item={item} />
       ))}
     </Stack>
   );
 }
 
-export default SearchedList;
+export default memo(SearchedList);

@@ -12,3 +12,10 @@ export type WeatherSearchParams = {
   searchCity?: string;
   date: string;
 };
+
+export type SearchWeather = {
+  tempC?: string;
+  tempF?: string;
+  icon?: string;
+  city?: string;
+};

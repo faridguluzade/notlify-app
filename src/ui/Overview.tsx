@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAppDispatch} from "@/store/hooks";
 
+import { useAppDispatch } from "@/store/hooks";
 import { fetchWeather } from "@/store/slice/weatherSlice";
 
 import Navigation from "./Navigation";

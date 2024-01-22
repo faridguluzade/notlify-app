@@ -1,12 +1,13 @@
+import { useAppSelector } from "@/store/hooks";
+import { getTemperature } from "@/store/slice/temperatureSlice";
+
+import { SearchWeather } from "@/types";
+
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { WeatherData } from "@/types";
-import { useAppSelector } from "@/store/hooks";
-import { getTemperature } from "@/store/slice/temperatureSlice";
-
-function SearchedItem({ item }: WeatherData) {
+function SearchedItem({ item }: { item: SearchWeather }) {
   const { isFahrenheit } = useAppSelector(getTemperature);
 
   return (
